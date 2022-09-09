@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.oceancloud.grampus.framework.rabbitmq.RabbitAutoConfiguration,\
+  com.oceancloud.grampus.framework.rabbitmq.context.ServiceInstanceInitializingBean

@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.oceancloud.grampus.framework.oauth2.config.PasswordConfig,\
+  com.oceancloud.grampus.framework.oauth2.config.TokenStoreConfig,\
+  com.oceancloud.grampus.framework.oauth2.config.LoadBalancerConfig,\
+  com.oceancloud.grampus.framework.oauth2.config.TokenInfoServicesConfig,\
+  com.oceancloud.grampus.framework.oauth2.exception.AuthenticationExceptionEntryPoint

@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.oceancloud.grampus.framework.signin.config.OAuthSignInAutoConfiguration,\
+  com.oceancloud.grampus.framework.signin.service.OAuthSignInServiceSelector.AuthSocialClientInitializing,\
+  com.oceancloud.grampus.framework.signin.utils.FacebookAdminTokenUtil

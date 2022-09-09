@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.oceancloud.grampus.framework.cloud.config.RequestInterceptorAutoConfiguration,\
+  com.oceancloud.grampus.framework.cloud.web.WebInterceptorAdapter,\
+  com.oceancloud.grampus.framework.cloud.web.WebMvcConfig

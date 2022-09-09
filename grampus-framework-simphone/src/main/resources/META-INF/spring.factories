@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.oceancloud.grampus.framework.simphone.config.SimPhoneAutoConfiguration,\
+  com.oceancloud.grampus.framework.simphone.service.SimPhoneServiceSelector.AuthSocialClientInitializing
