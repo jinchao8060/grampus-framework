@@ -12,13 +12,13 @@ import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 /**
- * NacosConfigUtil TODO 注入有问题，暂时先停掉
+ * NacosConfigUtil
  *
  * @author Beck
  * @since 2021-12-8
  */
 @AllArgsConstructor
-//@Component
+@Component
 public class NacosConfigUtil {
 
 	private final NacosServiceInstanceUtil nacosServiceInstanceUtil;
@@ -34,7 +34,7 @@ public class NacosConfigUtil {
 	 * @return 是否发布成功 true成功 false失败
 	 */
 	public Boolean publishConfig(String dataId, Object content) {
-		return publishConfig(dataId, JSONUtil.writeValueAsString(content), "json");
+		return publishConfig(dataId, JSONUtil.writeValueAsString(content, true), "json");
 	}
 
 	/**

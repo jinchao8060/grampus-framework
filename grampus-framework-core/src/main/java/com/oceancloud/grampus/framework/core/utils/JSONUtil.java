@@ -44,10 +44,25 @@ public class JSONUtil {
 	 */
 	@Nullable
 	public static String writeValueAsString(@Nullable Object object) {
+		return writeValueAsString(object, false);
+	}
+
+	/**
+	 * 将对象序列化成json字符串
+	 *
+	 * @param object javaBean
+	 * @param pretty 是否pretty格式输出
+	 * @return jsonString json字符串
+	 */
+	public static String writeValueAsString(Object object, Boolean pretty) {
 		if (object == null) {
 			return null;
 		}
 		try {
+			if (pretty) {
+				return getInstance().writerWithDefaultPrettyPrinter()
+						.writeValueAsString(object);
+			}
 			return getInstance().writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			throw Exceptions.unchecked(e);
