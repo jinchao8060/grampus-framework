@@ -235,8 +235,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
 	 *
 	 * @return 请求日志
 	 */
-	public static String getRequestLog() {
-		HttpServletRequest request = getRequest();
+	public static String getRequestLog(HttpServletRequest request) {
 		// 构建成一条长 日志，避免并发下日志错乱
 		StringBuilder beforeReqLog = new StringBuilder(300);
 		// 日志参数
