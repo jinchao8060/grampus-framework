@@ -2,6 +2,10 @@ package com.oceancloud.grampus.framework.core.utils;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Headers;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okio.Buffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
@@ -13,9 +17,14 @@ import org.springframework.web.method.HandlerMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -221,5 +230,49 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
 		}
 	}
 
+	public static String printRequestLog() {
+		HttpServletRequest request = getRequest();
+		// 构建成一条长 日志，避免并发下日志错乱
+		StringBuilder beforeReqLog = new StringBuilder(300);
+		// 日志参数
+		List<Object> beforeReqArgs = new ArrayList<>();
+		beforeReqLog.append("\n\n================ Servlet Request Start  ================\n");
+		// 打印路由
+		beforeReqLog.append("===> %s: %s\n");
+		// 参数
+		String requestMethod = request.getMethod();
+		String requestUrl = request.getRequestURL().toString();
+		beforeReqArgs.add(requestMethod);
+		beforeReqArgs.add(requestUrl);
+
+		// 打印请求头
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			beforeReqLog.append("===Headers===  %s: %s\n");
+			beforeReqArgs.add(headerName);
+			beforeReqArgs.add(request.getHeader(headerName));
+		}
+
+		// 打印请求体
+		beforeReqLog.append("===RequestBody===  %s\n");
+		// 直接从HttpServletRequest的Reader流中获取RequestBody
+		StringBuilder requestBody = new StringBuilder();
+		try {
+			BufferedReader reader = request.getReader();
+			String line = reader.readLine();
+			while(line != null){
+				requestBody.append(line);
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException e) {
+			Exceptions.unchecked(e);
+		}
+		beforeReqArgs.add(requestBody.toString());
+
+		beforeReqLog.append("================  Servlet Request End  =================\n");
+		return String.format(beforeReqLog.toString(), beforeReqArgs.toArray());
+	}
 }
 
