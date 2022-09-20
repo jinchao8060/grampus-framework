@@ -25,5 +25,4 @@
 			<artifactId>aliyun-java-sdk-dypnsapi</artifactId>
 		</dependency>
 	</dependencies>
-
 </project>
