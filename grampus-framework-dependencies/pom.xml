@@ -28,7 +28,7 @@
 		<mysql.connector.version>8.0.12</mysql.connector.version>
 		<hikari.version>3.4.5</hikari.version>
 		<pagehelper.version>1.4.5</pagehelper.version>
-		<mybatis-plus.version>3.5.1</mybatis-plus.version>
+		<mybatis-plus.version>3.5.2</mybatis-plus.version>
 		<mybatis-boot.version>2.1.4</mybatis-boot.version>
 		<mybaits.version>3.5.7</mybaits.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
