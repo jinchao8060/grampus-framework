@@ -15,12 +15,6 @@
 	<modules>
 		<module>grampus-framework-knife4j</module>
 		<module>grampus-framework-knife4j-micro</module>
-		<module>grampus-framework-knife4j-openapi3</module>
-
 	</modules>
-
-	<properties>
-		<swagger-fox.version>3.0.0</swagger-fox.version>
-	</properties>
 
 </project>
