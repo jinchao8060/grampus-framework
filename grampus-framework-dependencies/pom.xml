@@ -14,7 +14,7 @@
 		<guava.version>30.0-jre</guava.version>
 		<easypoi.version>2.2.6</easypoi.version>
 		<poi.version>4.0.1</poi.version>
-		<knife4j.version>3.0.3</knife4j.version>
+		<knife4j.version>2.0.9</knife4j.version>
 		<swagger.version>1.5.22</swagger.version>
 		<commons.lang.version>3.11</commons.lang.version>
 		<okhttp.version>4.9.0</okhttp.version>
