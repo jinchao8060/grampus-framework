@@ -154,7 +154,13 @@ public class SensitiveWordEngine {
 	 * @return 替换字符串
 	 */
 	private static String getReplaceChars(String replaceChar, int length) {
-		return replaceChar + replaceChar.repeat(Math.max(0, length - 1));
+		// JDK11
+		// return replaceChar + replaceChar.repeat(Math.max(0, length - 1));
+		StringBuilder resultReplace = new StringBuilder(replaceChar);
+		for (int i = 1; i < length; i++) {
+			resultReplace.append(replaceChar);
+		}
+		return resultReplace.toString();
 	}
 
 	/**
