@@ -1,16 +1,20 @@
 package com.oceancloud.grampus.framework.core.utils;
 
+import com.oceancloud.grampus.framework.core.utils.beans.BeanDiff;
+import com.oceancloud.grampus.framework.core.utils.beans.BeanProperty;
 import com.oceancloud.grampus.framework.core.utils.beans.EnhancedBeanCopier;
 import com.oceancloud.grampus.framework.core.utils.beans.EnhancedBeanMap;
 import com.oceancloud.grampus.framework.core.utils.convert.EnhancedConverter;
 import com.oceancloud.grampus.framework.core.utils.exception.ServiceException;
 import lombok.experimental.UtilityClass;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.cglib.beans.BeanGenerator;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.FastByteArrayOutputStream;
 
 import java.io.IOException;
@@ -52,9 +56,18 @@ public class BeanUtil extends org.springframework.beans.BeanUtils {
 	 * @return 对象
 	 */
 	public static <T> T newInstance(String clazzStr) {
+		return newInstance(forName(clazzStr));
+	}
+
+	/**
+	 * forName
+	 *
+	 * @param clazzStr 类名
+	 * @return Class
+	 */
+	public static Class<?> forName(String clazzStr) {
 		try {
-			Class<?> clazz = ClassUtil.forName(clazzStr, null);
-			return newInstance(clazz);
+			return ClassUtils.forName(clazzStr, null);
 		} catch (ClassNotFoundException e) {
 			throw new ServiceException(e);
 		}
@@ -362,7 +375,7 @@ public class BeanUtil extends org.springframework.beans.BeanUtils {
 			return null;
 		}
 		T to = newInstance(targetClazz);
-		BeanUtil.copyProperties(source, to);
+		BeanUtils.copyProperties(source, to);
 		return to;
 	}
 
@@ -450,6 +463,80 @@ public class BeanUtil extends org.springframework.beans.BeanUtils {
 		}
 		BeanUtil.copy(beanMap, to);
 		return to;
+	}
+
+	/**
+	 * 给一个Bean添加字段
+	 *
+	 * @param superBean 父级Bean
+	 * @param props     新增属性
+	 * @return {Object}
+	 */
+	@Nullable
+	public static Object generator(@Nullable Object superBean, BeanProperty... props) {
+		if (superBean == null) {
+			return null;
+		}
+		Class<?> superclass = superBean.getClass();
+		Object genBean = generator(superclass, props);
+		BeanUtil.copy(superBean, genBean);
+		return genBean;
+	}
+
+	/**
+	 * 给一个class添加字段
+	 *
+	 * @param superclass 父级
+	 * @param props      新增属性
+	 * @return {Object}
+	 */
+	public static Object generator(Class<?> superclass, BeanProperty... props) {
+		BeanGenerator generator = new BeanGenerator();
+		generator.setSuperclass(superclass);
+		generator.setUseCache(true);
+		generator.setContextClass(superclass);
+		for (BeanProperty prop : props) {
+			generator.addProperty(prop.getName(), prop.getType());
+		}
+		return generator.create();
+	}
+
+	/**
+	 * 比较对象
+	 *
+	 * @param src  源对象
+	 * @param dist 新对象
+	 * @return {BeanDiff}
+	 */
+	public static BeanDiff diff(final Object src, final Object dist) {
+		Assert.notNull(src, "diff Object src is null.");
+		Assert.notNull(src, "diff Object dist is null.");
+		return diff(BeanUtil.toMap(src), BeanUtil.toMap(dist));
+	}
+
+	/**
+	 * 比较Map
+	 *
+	 * @param src  源Map
+	 * @param dist 新Map
+	 * @return {BeanDiff}
+	 */
+	public static BeanDiff diff(final Map<String, Object> src, final Map<String, Object> dist) {
+		Assert.notNull(src, "diff Map src is null.");
+		Assert.notNull(src, "diff Map dist is null.");
+		// 改变
+		Map<String, Object> difference = new HashMap<>(8);
+		difference.putAll(src);
+		difference.putAll(dist);
+		difference.entrySet().removeAll(src.entrySet());
+		// 老值
+		Map<String, Object> oldValues = new HashMap<>(8);
+		difference.keySet().forEach((k) -> oldValues.put(k, src.get(k)));
+		BeanDiff diff = new BeanDiff();
+		diff.getFields().addAll(difference.keySet());
+		diff.getOldValues().putAll(oldValues);
+		diff.getNewValues().putAll(difference);
+		return diff;
 	}
 
 }
