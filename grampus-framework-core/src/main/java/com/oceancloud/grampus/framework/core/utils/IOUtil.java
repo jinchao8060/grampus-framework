@@ -1,6 +1,5 @@
 package com.oceancloud.grampus.framework.core.utils;
 
-import com.google.common.base.Charsets;
 import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
 
