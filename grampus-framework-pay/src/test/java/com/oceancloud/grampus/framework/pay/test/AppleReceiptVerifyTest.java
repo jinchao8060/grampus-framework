@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 public class AppleReceiptVerifyTest {
 
 	private static final String receipt = "";
+
 	@Test
 	public void test() {
 		AppleReceiptData appleReceiptData = AppleReceiptVerifyUtil.verifyReceipt(receipt);
