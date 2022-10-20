@@ -40,7 +40,8 @@
         <module>grampus-framework-oss</module>
 		<module>grampus-framework-signin</module>
 		<module>grampus-framework-simphone</module>
-	</modules>
+        <module>grampus-framework-pay</module>
+    </modules>
 
 	<properties>
 		<grampus-framework.version>1.0.0</grampus-framework.version>
