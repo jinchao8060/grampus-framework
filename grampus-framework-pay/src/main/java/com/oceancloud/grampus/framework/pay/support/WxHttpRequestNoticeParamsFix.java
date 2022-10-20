@@ -23,11 +23,11 @@ import com.egzosn.pay.common.bean.NoticeRequest;
  * date 2021/8/16
  * </pre>
  */
-public class HttpRequestNoticeParamsFix implements NoticeRequest {
+public class WxHttpRequestNoticeParamsFix implements NoticeRequest {
 
 	private final HttpServletRequest httpServletRequest;
 
-	public HttpRequestNoticeParamsFix(HttpServletRequest httpServletRequest) {
+	public WxHttpRequestNoticeParamsFix(HttpServletRequest httpServletRequest) {
 		this.httpServletRequest = httpServletRequest;
 	}
 
