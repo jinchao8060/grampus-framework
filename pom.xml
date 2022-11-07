@@ -173,8 +173,8 @@
 	<repositories>
 		<repository>
 			<id>aliyun</id>
-			<name>aliyun nexus</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<name>aliyun public</name>
+			<url>https://maven.aliyun.com/repository/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -184,8 +184,8 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>aliyun-plugin</id>
-			<name>aliyun nexus</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<name>aliyun public</name>
+			<url>https://maven.aliyun.com/repository/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
