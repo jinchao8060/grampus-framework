@@ -11,7 +11,7 @@
 	<properties>
 		<grampus-framework.version>1.0.0</grampus-framework.version>
 		<lombok.version>1.18.4</lombok.version>
-		<guava.version>30.0-jre</guava.version>
+		<guava.version>31.1-jre</guava.version>
 		<easypoi.version>2.2.6</easypoi.version>
 		<poi.version>4.0.1</poi.version>
 		<knife4j.version>3.0.3</knife4j.version>
