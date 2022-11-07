@@ -28,7 +28,7 @@ public class AppleReceiptData {
 	@JsonProperty("environment")
 	private String environment;
 	/**
-	 * 如果收据有效，或者0如果有错误，则返回状态代码。状态码反映了整个应用收据的状态。<a href="https://developer.apple.com/documentation/appstorereceipts/status">有关status可能的状态代码和说明，请参阅。</a>
+	 * 如果收据有效则返回0，如果有错误则返回状态代码。状态码反映了整个应用收据的状态。<a href="https://developer.apple.com/documentation/appstorereceipts/status">有关status可能的状态代码和说明，请参阅。</a>
 	 */
 	@JsonProperty("status")
 	private Integer status;
