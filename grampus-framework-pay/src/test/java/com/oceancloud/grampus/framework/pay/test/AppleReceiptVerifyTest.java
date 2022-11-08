@@ -1,7 +1,7 @@
 package com.oceancloud.grampus.framework.pay.test;
 
-import com.oceancloud.grampus.framework.pay.dto.AppleReceiptData;
-import com.oceancloud.grampus.framework.pay.utils.AppleReceiptVerifyUtil;
+import com.oceancloud.grampus.framework.pay.apple.bean.AppleReceiptData;
+import com.oceancloud.grampus.framework.pay.apple.utils.AppleReceiptVerifyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

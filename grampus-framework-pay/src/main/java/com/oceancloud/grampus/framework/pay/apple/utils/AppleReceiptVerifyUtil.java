@@ -1,8 +1,8 @@
-package com.oceancloud.grampus.framework.pay.utils;
+package com.oceancloud.grampus.framework.pay.apple.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.oceancloud.grampus.framework.core.utils.JSONUtil;
-import com.oceancloud.grampus.framework.pay.dto.AppleReceiptData;
+import com.oceancloud.grampus.framework.pay.apple.bean.AppleReceiptData;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
