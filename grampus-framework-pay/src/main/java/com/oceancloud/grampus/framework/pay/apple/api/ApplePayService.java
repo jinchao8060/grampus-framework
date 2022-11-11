@@ -3,13 +3,10 @@ package com.oceancloud.grampus.framework.pay.apple.api;
 import com.egzosn.pay.common.api.BasePayService;
 import com.egzosn.pay.common.bean.*;
 import com.egzosn.pay.common.http.HttpConfigStorage;
-import com.egzosn.pay.wx.v3.bean.response.WxPayMessage;
 import com.oceancloud.grampus.framework.pay.apple.bean.AppleReceiptData;
-import com.oceancloud.grampus.framework.pay.apple.enums.ApplyPayEnvEnum;
 import com.oceancloud.grampus.framework.pay.apple.utils.AppleReceiptVerifyUtil;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
