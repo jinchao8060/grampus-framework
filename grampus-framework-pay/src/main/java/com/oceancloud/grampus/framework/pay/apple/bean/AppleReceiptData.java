@@ -139,12 +139,12 @@ public class AppleReceiptData extends PayMessage {
 			@JsonProperty("product_id")
 			private String productId;
 			/**
-			 * 交易的唯一标识符，例如购买、恢复或续订。有关更多信息，请参阅。transaction_id
+			 * 交易的唯一标识符，例如购买、恢复或续订。有关更多信息，请参阅。<a href="https://developer.apple.com/documentation/appstorereceipts/transaction_id">transaction_id</a>
 			 */
 			@JsonProperty("transaction_id")
 			private String transactionId;
 			/**
-			 * 原始购买的交易标识符。有关更多信息，请参阅。original_transaction_id
+			 * 原始购买的交易标识符。有关更多信息，请参阅。<a href="https://developer.apple.com/documentation/appstorereceipts/original_transaction_id">original_transaction_id</a>
 			 */
 			@JsonProperty("original_transaction_id")
 			private String originalTransactionId;
