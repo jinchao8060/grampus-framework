@@ -23,12 +23,12 @@ public class ApplePayConfigStorage extends BasePayConfigStorage {
 
 	@Override
 	public String getAppid() {
-		return null;
+		return this.bundleId;
 	}
 
 	@Override
 	public String getAppId() {
-		return null;
+		return this.bundleId;
 	}
 
 	@Override

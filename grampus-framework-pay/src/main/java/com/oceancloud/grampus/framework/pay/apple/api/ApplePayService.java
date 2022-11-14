@@ -2,10 +2,18 @@ package com.oceancloud.grampus.framework.pay.apple.api;
 
 import com.egzosn.pay.common.api.BasePayService;
 import com.egzosn.pay.common.bean.*;
+import com.egzosn.pay.common.bean.result.PayException;
+import com.egzosn.pay.common.exception.PayErrorException;
 import com.egzosn.pay.common.http.HttpConfigStorage;
+import com.egzosn.pay.common.util.IOUtils;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.oceancloud.grampus.framework.core.utils.JSONUtil;
 import com.oceancloud.grampus.framework.pay.apple.bean.AppleReceiptData;
 import com.oceancloud.grampus.framework.pay.apple.utils.AppleReceiptVerifyUtil;
+import org.assertj.core.util.Maps;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -33,13 +41,34 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	@Override
 	public boolean verify(NoticeParams noticeParams) {
 		Map<String, Object> body = noticeParams.getBody();
-		String receiptDataString = (String) body.get("");
+		String receiptDataString = (String) body.get("receipt-data");
 
 		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
 		Integer status = receiptData.getStatus();
 		String environment = receiptData.getEnvironment();
 		String curEnvironment = payConfigStorage.getEnvironment();
 		return status.equals(0) && curEnvironment.equals(environment);
+	}
+
+	/**
+	 * 将请求参数或者请求流转化为 Map
+	 *
+	 * @param request 通知请求
+	 * @return 获得回调的请求参数
+	 */
+	@Override
+	public NoticeParams getNoticeParams(NoticeRequest request) {
+		NoticeParams noticeParams = new NoticeParams();
+		try (InputStream is = request.getInputStream()) {
+			String body = IOUtils.toString(is);
+			JsonNode jsonNode = JSONUtil.readTree(body);
+			String receiptData = jsonNode.get("receipt-data").asText();
+			noticeParams.setBody(Maps.newHashMap("receipt-data", receiptData));
+		}
+		catch (IOException e) {
+			throw new PayErrorException(new PayException("failure", "获取回调参数异常"), e);
+		}
+		return noticeParams;
 	}
 
 	@Override
@@ -120,7 +149,7 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	 */
 	@Override
 	public PayMessage createMessage(Map<String, Object> message) {
-		String receipt = (String) message.get("receipt");
+		String receipt = (String) message.get("receipt-data");
 		return AppleReceiptVerifyUtil.verifyReceipt(receipt);
 	}
 }
