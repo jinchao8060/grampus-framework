@@ -7,10 +7,11 @@ import com.egzosn.pay.common.exception.PayErrorException;
 import com.egzosn.pay.common.http.HttpConfigStorage;
 import com.egzosn.pay.common.util.IOUtils;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.Maps;
 import com.oceancloud.grampus.framework.core.utils.JSONUtil;
+import com.oceancloud.grampus.framework.pay.apple.bean.ApplePayMessage;
 import com.oceancloud.grampus.framework.pay.apple.bean.AppleReceiptData;
 import com.oceancloud.grampus.framework.pay.apple.utils.AppleReceiptVerifyUtil;
-import org.assertj.core.util.Maps;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +42,7 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	@Override
 	public boolean verify(NoticeParams noticeParams) {
 		Map<String, Object> body = noticeParams.getBody();
-		String receiptDataString = (String) body.get("receipt-data");
+		String receiptDataString = (String) body.get("receiptData");
 
 		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
 		Integer status = receiptData.getStatus();
@@ -65,8 +66,12 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 		try (InputStream is = request.getInputStream()) {
 			String body = IOUtils.toString(is);
 			JsonNode jsonNode = JSONUtil.readTree(body);
-			String receiptData = jsonNode.get("receipt-data").asText();
-			noticeParams.setBody(Maps.newHashMap("receipt-data", receiptData));
+			String receiptData = jsonNode.get("receiptData").asText();
+			String payOrderNo = jsonNode.get("payOrderNo").asText();
+			Map<String, Object> bodyMap = Maps.newHashMap();
+			bodyMap.put("receiptData", receiptData);
+			bodyMap.put("payOrderNo", payOrderNo);
+			noticeParams.setBody(bodyMap);
 		}
 		catch (IOException e) {
 			throw new PayErrorException(new PayException("failure", "获取回调参数异常"), e);
@@ -152,7 +157,12 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	 */
 	@Override
 	public PayMessage createMessage(Map<String, Object> message) {
-		String receipt = (String) message.get("receipt-data");
-		return AppleReceiptVerifyUtil.verifyReceipt(receipt);
+		String receiptDataString = (String) message.get("receiptData");
+		String payOrderNo = (String) message.get("payOrderNo");
+		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
+		ApplePayMessage applePayMessage = new ApplePayMessage();
+		applePayMessage.setPayOrderNo(payOrderNo);
+		applePayMessage.setReceiptData(receiptData);
+		return applePayMessage;
 	}
 }

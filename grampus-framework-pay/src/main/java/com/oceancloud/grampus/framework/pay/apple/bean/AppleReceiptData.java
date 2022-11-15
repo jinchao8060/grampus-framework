@@ -1,6 +1,5 @@
 package com.oceancloud.grampus.framework.pay.apple.bean;
 
-import com.egzosn.pay.common.bean.PayMessage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 @Data
-public class AppleReceiptData extends PayMessage {
+public class AppleReceiptData {
 	/**
 	 * 您发送以供验证的收据的 JSON 表示形式。
 	 */
