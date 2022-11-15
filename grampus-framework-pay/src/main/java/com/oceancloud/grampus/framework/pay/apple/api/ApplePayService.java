@@ -45,9 +45,12 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 
 		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
 		Integer status = receiptData.getStatus();
+		AppleReceiptData.ReceiptDTO receipt = receiptData.getReceipt();
 		String environment = receiptData.getEnvironment();
 		String curEnvironment = payConfigStorage.getEnvironment();
-		return status.equals(0) && curEnvironment.equals(environment);
+		String curBundleId = payConfigStorage.getBundleId();
+
+		return status.equals(0) && curEnvironment.equals(environment) && curBundleId.equals(receipt.getBundleId());
 	}
 
 	/**
