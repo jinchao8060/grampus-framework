@@ -183,6 +183,11 @@ public class AppleReceiptData extends PayMessage {
 			 */
 			@JsonProperty("is_trial_period")
 			private String isTrialPeriod;
+			/**
+			 * 用户与他们有权访问的家庭共享购买的关系。
+			 * FAMILY_SHARED 交易属于受益于服务的家庭成员。
+			 * PURCHASED 交易属于买方。
+			 */
 			@JsonProperty("in_app_ownership_type")
 			private String inAppOwnershipType;
 		}
