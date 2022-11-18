@@ -53,6 +53,7 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 		Set<String> curBundleIdSet = payConfigStorage.getBundleId();
 
 		body.put("receiptDataPlain", receiptData);
+		body.put("receiptData", receiptDataString);
 
 		return status.equals(0) && curEnvironment.equals(environment) && curBundleIdSet.contains(receipt.getBundleId());
 	}
@@ -160,12 +161,14 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	@Override
 	public PayMessage createMessage(Map<String, Object> message) {
 		AppleReceiptData receiptData = (AppleReceiptData) message.get("receiptDataPlain");
+		String receiptDataString = (String) message.get("receiptData");
 //		String receiptDataString = (String) message.get("receiptData");
 		String payOrderNo = (String) message.get("payOrderNo");
 //		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
 		ApplePayMessage applePayMessage = new ApplePayMessage();
 		applePayMessage.setPayOrderNo(payOrderNo);
 		applePayMessage.setReceiptData(receiptData);
+		applePayMessage.setReceiptDataString(receiptDataString);
 		return applePayMessage;
 	}
 }

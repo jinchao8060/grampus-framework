@@ -27,4 +27,8 @@ public class ApplePayMessage extends PayMessage {
 	 * 苹果内购收据
 	 */
 	private AppleReceiptData receiptData;
+	/**
+	 * 苹果内购收据原文
+	 */
+	private String receiptDataString;
 }
