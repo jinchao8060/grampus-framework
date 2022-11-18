@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * ApplePayService
@@ -49,9 +50,11 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 		AppleReceiptData.ReceiptDTO receipt = receiptData.getReceipt();
 		String environment = receiptData.getEnvironment();
 		String curEnvironment = payConfigStorage.getEnvironment();
-		String curBundleId = payConfigStorage.getBundleId();
+		Set<String> curBundleIdSet = payConfigStorage.getBundleId();
 
-		return status.equals(0) && curEnvironment.equals(environment) && curBundleId.equals(receipt.getBundleId());
+		body.put("receiptDataPlain", receiptData);
+
+		return status.equals(0) && curEnvironment.equals(environment) && curBundleIdSet.contains(receipt.getBundleId());
 	}
 
 	/**
@@ -72,8 +75,7 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 			bodyMap.put("receiptData", receiptData);
 			bodyMap.put("payOrderNo", payOrderNo);
 			noticeParams.setBody(bodyMap);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new PayErrorException(new PayException("failure", "获取回调参数异常"), e);
 		}
 		return noticeParams;
@@ -157,9 +159,10 @@ public class ApplePayService extends BasePayService<ApplePayConfigStorage> {
 	 */
 	@Override
 	public PayMessage createMessage(Map<String, Object> message) {
-		String receiptDataString = (String) message.get("receiptData");
+		AppleReceiptData receiptData = (AppleReceiptData) message.get("receiptDataPlain");
+//		String receiptDataString = (String) message.get("receiptData");
 		String payOrderNo = (String) message.get("payOrderNo");
-		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
+//		AppleReceiptData receiptData = AppleReceiptVerifyUtil.verifyReceipt(receiptDataString);
 		ApplePayMessage applePayMessage = new ApplePayMessage();
 		applePayMessage.setPayOrderNo(payOrderNo);
 		applePayMessage.setReceiptData(receiptData);

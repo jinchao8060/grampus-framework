@@ -3,6 +3,8 @@ package com.oceancloud.grampus.framework.pay.apple.api;
 import com.egzosn.pay.common.api.BasePayConfigStorage;
 import lombok.Data;
 
+import java.util.Set;
+
 /**
  * 苹果支付配置存储
  *
@@ -15,7 +17,7 @@ public class ApplePayConfigStorage extends BasePayConfigStorage {
 	/**
 	 * 包名
 	 */
-	private String bundleId;
+	private Set<String> bundleId;
 	/**
 	 * 票据类型（Production/Sandbox）
 	 */
@@ -23,12 +25,12 @@ public class ApplePayConfigStorage extends BasePayConfigStorage {
 
 	@Override
 	public String getAppid() {
-		return this.bundleId;
+		return null;
 	}
 
 	@Override
 	public String getAppId() {
-		return this.bundleId;
+		return null;
 	}
 
 	@Override
