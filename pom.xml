@@ -20,6 +20,7 @@
 		<module>grampus-framework-dependencies</module>
 		<module>grampus-framework-core</module>
 		<module>grampus-framework-excel</module>
+		<module>grampus-framework-captcha</module>
 		<module>grampus-framework-swagger</module>
 		<module>grampus-framework-mybatis</module>
 		<module>grampus-framework-datasource</module>
