@@ -38,9 +38,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	// ~ ======================= 入参数据处理（时间支持时间戳以及其他格式） ===============================
 
-	/**
-	 * 时间类型入参添加支持
-	 */
 	@Bean
 	public ConfigurableWebBindingInitializer configurableWebBindingInitializer(FormattingConversionService mvcConversionService, Validator mvcValidator) {
 		ConfigurableWebBindingInitializer initializer = new ConfigurableWebBindingInitializer();
