@@ -24,18 +24,12 @@ public interface OAuth2ErrorCode {
 	 * 		COMMON: 10
 	 * 		APP：11
 	 * 		ADMIN：12
-	 * 		AGENT：13
-	 * 		AGENCY：14
 	 *  服务标识(2位数字)
 	 *  	认证授权服务：11
 	 *  	系统服务：12
 	 *  	会员服务：13
-	 *  	消费服务：14
-	 *  	消息中心：15
-	 *  	聊天服务：16
-	 *  	社区服务：17
-	 *  	活动服务: 18
-	 *  	发布商服务：19
+	 *  	消息中心：14
+	 *  	聊天服务：15
 	 * 	功能域(2位数字)
 	 * 		未分类：00
 	 * 		X1功能相关：01
@@ -64,7 +58,7 @@ public interface OAuth2ErrorCode {
 		/**
 		 * 未知异常错误码
 		 */
-		UNKNOWN_ERROR_CODE("-1", "UNKNOWN_ERROR_CODE");
+		UNKNOWN_ERROR_CODE("-1", "未知异常错误码");
 
 		@Getter String code;
 		@Getter String msg;
@@ -79,31 +73,31 @@ public interface OAuth2ErrorCode {
 		/**
 		 * 认证传参错误异常
 		 */
-		AUTH_PARAMS_ERROR("101101P001", "AUTH_PARAMS_ERROR"),
+		AUTH_PARAMS_ERROR("101101P001", "认证传参错误异常"),
 		/**
 		 * 用户密码错误异常
 		 */
-		USER_PASSWORD_ERROR("101101B001", "USER_PASSWORD_ERROR"),
+		USER_PASSWORD_ERROR("101101B001", "用户密码错误异常"),
 		/**
 		 * 会员不存在异常
 		 */
-		USER_NOT_EXISTED("101101B002", "USER_NOT_EXISTED"),
+		USER_NOT_EXISTED("101101B002", "会员不存在异常"),
 		/**
 		 * 用户账号禁用异常
 		 */
-		USER_DISABLE_ERROR("101101B003", "USER_DISABLE_ERROR"),
+		USER_DISABLE_ERROR("101101B003", "用户账号禁用异常"),
 		/**
 		 * 用户访问权限异常
 		 */
-		USER_ACCESS_DENIED_ERROR("101101B004", "USER_ACCESS_DENIED_ERROR"),
+		USER_ACCESS_DENIED_ERROR("101101B004", "用户访问权限异常"),
 		/**
-		 * token失效异常
+		 * Token失效异常
 		 */
-		TOKEN_EXPIRED_ERROR("101101B005", "TOKEN_EXPIRED_ERROR"),
+		TOKEN_EXPIRED_ERROR("101101B005", "Token失效异常"),
 		/**
-		 * token解析失败异常
+		 * Token解析失败异常
 		 */
-		TOKEN_PARSED_ERROR("101101B006", "TOKEN_PARSED_ERROR"),
+		TOKEN_PARSED_ERROR("101101B006", "Token解析失败异常"),
 
 		/**
 		 * FORBIDDEN_EXCEPTION
